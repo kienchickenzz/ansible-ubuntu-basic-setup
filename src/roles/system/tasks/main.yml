@@ -2,6 +2,7 @@
   name: Install common package
   tags: package
 
+
 - import_tasks: nerdfont.yml
   name: Install Nerd Fonts
   tags: nerd_font

@@ -4,6 +4,7 @@
     state: directory
   loop: "{{ nerd_fonts }}"
   
+  
 # TODO: Kiểm tra nếu font đã tồn tại thì không download và unzip lại
 - name: Download Nerd Fonts
   get_url:
