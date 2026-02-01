@@ -1,6 +1,17 @@
-- hosts: all
-  become: True
+- name: System bootstrap (root only)
+  hosts: local
+  connection: local
+  become: false # Chạy ansible bằng root
   roles:
-  - { role: shared, tags: ['packages'] }
-  - { role: shell, tags: ['shell'] }
-  - { role: dotfile, tags: ['dotfile'] }
+    - system
+  tags: [system]
+
+- name: User environment setup (single user)
+  hosts: local
+  connection: local
+  become: false
+  vars:
+    user: "{{ target_user }}"
+  roles:
+    - users
+  tags: [users]

@@ -1,0 +1,7 @@
+target_user:
+  name: nguyen-duc-kien
+  home: /home/nguyen-duc-kien
+  stow:
+    - wezterm
+    - zsh
+    - tmux

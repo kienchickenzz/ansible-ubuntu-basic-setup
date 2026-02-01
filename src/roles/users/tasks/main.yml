@@ -1,0 +1,9 @@
+- import_tasks: dotfile.yml
+  name: Manage dotfile
+  tags: dotfile
+
+
+- name: Install Oh My Zsh
+  import_tasks: ohmyzsh.yml
+  tags: ohmyzsh
+

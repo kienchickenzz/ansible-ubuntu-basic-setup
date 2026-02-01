@@ -1,4 +1,5 @@
 - name: Download wezterm GPG key
+  become: True
   get_url:
     url: https://apt.fury.io/wez/gpg.key
     dest: /tmp/wezterm.gpg.key
@@ -24,6 +25,7 @@
 
 
 - name: Install common packages
+  become: True
   apt:
     name:
       # Utilities

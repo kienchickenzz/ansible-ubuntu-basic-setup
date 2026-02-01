@@ -1,0 +1,24 @@
+- name: Clone dotfiles
+  git:
+    repo: "{{ dotfile_repo }}"
+    dest: "{{ user.home }}/dotfile"
+    version: main
+    force: yes
+
+
+- name: Remove existing .zshrc if exists (force overwrite)
+  ansible.builtin.file:
+    path: "{{ user.home }}/.zshrc"
+    state: absent
+
+
+- name: Create symlinks with stow
+  command: >
+    stow -d {{ user.home }}/dotfile
+         -t {{ user.home }}
+         {{ item }}
+  register: stow_result
+  changed_when: stow_result.stdout != ""
+  args:
+    chdir: "{{ user.home }}"
+  loop: "{{ user.stow }}"
