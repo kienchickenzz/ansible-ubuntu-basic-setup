@@ -1,1 +1,3 @@
-# ansible-ubuntu-basic-setup
+ansible-playbook playbook.yml \
+  --limit local \
+  --tags nerd_font

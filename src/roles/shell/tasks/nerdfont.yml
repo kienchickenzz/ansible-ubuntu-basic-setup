@@ -1,0 +1,39 @@
+- name: Create fonts directory
+  become_user: "{{ item.0.name }}"
+  file:
+    path: "{{ item.0.home }}/.local/share/fonts/{{ item.1 }}"
+    state: directory
+  loop: "{{ users | product(nerd_fonts) | list }}"
+
+
+- name: Download Nerd Fonts
+  become_user: "{{ item.0.name }}"
+  get_url:
+    url: "{{ nerd_fonts_base_url }}/{{ item.1 }}.zip"
+    dest: "/tmp/{{ item.1 }}.zip"
+  loop: "{{ users | product(nerd_fonts) | list }}"
+
+
+- name: Unzip Nerd Fonts
+  become_user: "{{ item.0.name }}"
+  unarchive:
+    src: "/tmp/{{ item.1 }}.zip"
+    dest: "{{ item.0.home }}/.local/share/fonts/{{ item.1 }}"
+    remote_src: yes
+  loop: "{{ users | product(nerd_fonts) | list }}"
+
+
+- name: Refresh font cache
+  command: fc-cache -fv
+
+
+- name: Verify installed Nerd Fonts
+  command: fc-list
+  register: fc_list_result
+  changed_when: false
+
+
+- name: Show installed Nerd Fonts
+  debug:
+    msg: "{{ fc_list_result.stdout_lines | select('search', item) | list }}"
+  loop: "{{ nerd_fonts }}"

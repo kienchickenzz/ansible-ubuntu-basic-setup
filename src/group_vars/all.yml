@@ -1,0 +1,23 @@
+users:
+- name: anh
+  home: /home/anh
+  stow:
+  - wezterm
+  - zsh
+  - tmux
+
+- name: root
+  home: /root
+  stow:
+  - wezterm
+  - zsh
+  - tmux
+
+dotfile_repo: https://github.com/kienchickenzz/dotfile.git
+nerd_fonts_base_url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0
+oh_my_zsh_install_url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+
+nerd_fonts:
+- CascadiaCode
+- JetBrainsMono
+- FiraCode

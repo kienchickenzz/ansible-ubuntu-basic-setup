@@ -1,0 +1,6 @@
+- name: Install Oh My Zsh
+  import_tasks: ohmyzsh.yml
+  tags: ohmyzsh
+- name: Install Nerd Font
+  import_tasks: nerdfont.yml
+  tags: nerd_font

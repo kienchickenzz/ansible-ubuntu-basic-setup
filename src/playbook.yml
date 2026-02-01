@@ -1,0 +1,6 @@
+- hosts: all
+  become: True
+  roles:
+  - { role: shared, tags: ['packages'] }
+  - { role: shell, tags: ['shell'] }
+  - { role: dotfile, tags: ['dotfile'] }

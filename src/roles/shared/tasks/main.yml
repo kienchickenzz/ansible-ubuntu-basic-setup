@@ -1,0 +1,43 @@
+- name: Download wezterm GPG key
+  get_url:
+    url: https://apt.fury.io/wez/gpg.key
+    dest: /tmp/wezterm.gpg.key
+  register: gpg_download
+
+
+- name: Dearmor wezterm GPG key
+  command: gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg /tmp/wezterm.gpg.key
+  when: gpg_download.changed
+
+
+- name: Set permissions for wezterm GPG key
+  file:
+    path: /usr/share/keyrings/wezterm-fury.gpg
+    mode: '0644'
+
+
+- name: Add wezterm repository
+  apt_repository:
+    repo: 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *'
+    filename: wezterm
+    state: present
+
+
+- name: Install common packages
+  apt:
+    name:
+      # Utilities
+      - curl
+      - stow
+      - gnome-tweaks # For customizing GNOME settings
+      - git
+      - unzip
+      # Text editors
+      - nano
+      # Shell & terminal
+      - zsh
+      - wezterm
+      - tmux
+    state: present
+    update_cache: yes
+  

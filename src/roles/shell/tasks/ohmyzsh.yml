@@ -1,0 +1,8 @@
+# TODO: Clone oh-my-zsh repo bằng git module và chạy installer từ local thay vì curl pipe to shell
+- name: Install Oh My Zsh
+  become_user: "{{ item.name }}"
+  shell: |
+    sh -c "$(curl -fsSL {{ oh_my_zsh_install_url }})" "" --unattended
+  args:
+    creates: "{{ item.home }}/.oh-my-zsh"
+  loop: "{{ users }}"
